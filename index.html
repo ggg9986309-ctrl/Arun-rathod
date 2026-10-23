@@ -12,8 +12,137 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:#fff;font-family:'Rajdhani',sans-serif;overflow-x:hidden}
-#stars{position:fixed;inset:0;width:100%;height:100%;z-index:-2}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:5;background:repeating-linear-gradient(transparent 0 3px,#00ff8810 4px);opacity:.22}
+#stars{position:fixed;inset:0;width:100%;height:100%;z-index:-
+<!-- ARUN RATHOD: NEXT LEVEL UPGRADE -->
+<style>
+.ar-next{padding:85px 7%;background:radial-gradient(ellipse at 80% 20%,#0b2512,#020605 65%);border-top:1px solid #39ff1433}
+.ar-next-head{max-width:1100px;margin:auto}
+.ar-next-title{font:900 clamp(26px,5vw,46px) Orbitron,sans-serif;margin:15px 0 35px}
+.ar-next-title span{color:#39ff14}
+.ar-skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:900px}
+.ar-skill{padding:22px;border:1px solid #39ff1438;background:#061009;transition:.3s}
+.ar-skill:hover{border-color:#39ff14;transform:translateY(-4px);box-shadow:0 0 22px #39ff1415}
+.ar-skill-top{display:flex;justify-content:space-between;gap:10px;font:11px Orbitron,sans-serif;letter-spacing:1px;margin-bottom:16px}
+.ar-skill-top span:last-child{color:#39ff14}
+.ar-track{height:5px;background:#19321e;overflow:hidden}
+.ar-track span{display:block;width:0;height:100%;background:linear-gradient(90deg,#087d27,#39ff14,#00f5ff);box-shadow:0 0 12px #39ff14;transition:width 1.5s ease}
+.ar-skill.visible .ar-track span{width:var(--level)}
+.ar-contact-box{max-width:1000px;margin:30px auto 0;padding:clamp(25px,5vw,55px);text-align:center;border:1px solid #39ff1450;background:linear-gradient(135deg,#0a1d0f,#020605);position:relative;overflow:hidden}
+.ar-contact-box:before{content:"";position:absolute;left:-30%;top:0;width:25%;height:100%;background:#39ff1410;transform:skewX(-20deg);animation:arSweep 6s linear infinite}
+@keyframes arSweep{to{left:130%}}
+.ar-contact-box h2{position:relative;font:900 clamp(25px,5vw,44px) Orbitron,sans-serif;margin-bottom:18px}
+.ar-contact-box h2 span{color:#39ff14}
+.ar-contact-box p{position:relative;color:#a9c2ae;font-size:18px;line-height:1.7;margin-bottom:25px}
+.ar-contact-links{position:relative;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.ar-audio{position:fixed;right:14px;bottom:58px;z-index:15;border:1px solid #39ff1460;background:#020605e8;color:#39ff14;padding:12px 14px;font:10px Orbitron,sans-serif;letter-spacing:1px;cursor:pointer}
+.ar-bars{display:inline-flex;align-items:center;gap:3px;height:12px;margin-left:6px;vertical-align:middle}
+.ar-bars i{width:3px;height:5px;background:#39ff14}
+.ar-audio.playing .ar-bars i{animation:arBars .55s ease-in-out infinite alternate}
+.ar-audio.playing .ar-bars i:nth-child(2){animation-delay:.2s}
+.ar-audio.playing .ar-bars i:nth-child(3){animation-delay:.4s}
+@keyframes arBars{to{height:12px}}
+.ar-top{position:fixed;right:15px;bottom:15px;z-index:15;background:#39ff14;color:#001400;border:0;padding:10px 13px;font-weight:900;cursor:pointer;opacity:0;pointer-events:none;transition:.3s}
+.ar-top.show{opacity:1;pointer-events:auto}
+@media(max-width:650px){.ar-next{padding:65px 6%}.ar-skill-grid{grid-template-columns:1fr}.ar-audio{bottom:55px}}
+</style>
+
+<section class="ar-next" id="journey">
+ <div class="ar-next-head">
+  <div class="kicker">06 / PERSONAL DEVELOPMENT</div>
+  <h2 class="ar-next-title">MY <span>FOCUS.</span></h2>
+  <p style="font-size:18px;line-height:1.7;color:#a9c2ae;max-width:650px;margin-bottom:30px">
+   A mindset focused on learning, discipline and creating a better future.
+   These are personal priorities, not measured skill scores.
+  </p>
+  <div class="ar-skill-grid">
+   <div class="ar-skill"><div class="ar-skill-top"><span>CONTINUOUS LEARNING</span><span>FOCUS</span></div><div class="ar-track"><span style="--level:92%"></span></div></div>
+   <div class="ar-skill"><div class="ar-skill-top"><span>DISCIPLINE</span><span>FOCUS</span></div><div class="ar-track"><span style="--level:88%"></span></div></div>
+   <div class="ar-skill"><div class="ar-skill-top"><span>CREATIVITY</span><span>FOCUS</span></div><div class="ar-track"><span style="--level:85%"></span></div></div>
+   <div class="ar-skill"><div class="ar-skill-top"><span>PERSONAL GROWTH</span><span>FOCUS</span></div><div class="ar-track"><span style="--level:95%"></span></div></div>
+  </div>
+ </div>
+</section>
+
+<section class="ar-next" id="contact">
+ <div class="ar-contact-box">
+  <div class="kicker">07 / YOUR TURN</div>
+  <h2>LET'S MAKE IT <span>HAPPEN.</span></h2>
+  <p>Every journey starts somewhere.<br>Connect with me and follow what's next.</p>
+  <div class="ar-contact-links">
+   <a class="btn primary" href="https://www.instagram.com/arunofficial.07/" target="_blank" rel="noopener">INSTAGRAM ↗</a>
+   <a class="btn" href="#home">BACK TO TOP ↑</a>
+  </div>
+ </div>
+</section>
+
+<button class="ar-audio" id="arAudio" type="button" aria-pressed="false">
+ AMBIENCE <span id="arAudioText">OFF</span>
+ <span class="ar-bars"><i></i><i></i><i></i></span>
+</button>
+<button class="ar-top" id="arTop" type="button" aria-label="Back to top">↑</button>
+
+<script>
+(function(){
+ const skills=document.querySelectorAll('.ar-skill');
+ const revealSkills=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+   if(entry.isIntersecting){
+    entry.target.classList.add('visible');
+    revealSkills.unobserve(entry.target);
+   }
+  });
+ },{threshold:.2});
+ skills.forEach(skill=>revealSkills.observe(skill));
+
+ const topBtn=document.getElementById('arTop');
+ addEventListener('scroll',()=>{
+  topBtn.classList.toggle('show',scrollY>500);
+ },{passive:true});
+ topBtn.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+
+ // Optional locally generated ambient tone. Starts only after user taps.
+ const audioBtn=document.getElementById('arAudio');
+ const audioText=document.getElementById('arAudioText');
+ let audioContext=null,oscillator=null,gain=null,playing=false;
+
+ audioBtn.addEventListener('click',async()=>{
+  if(!playing){
+   try{
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC){audioText.textContent='UNAVAILABLE';return}
+    audioContext=audioContext||new AC();
+    await audioContext.resume();
+    oscillator=audioContext.createOscillator();
+    gain=audioContext.createGain();
+    oscillator.type='sine';
+    oscillator.frequency.value=55;
+    gain.gain.value=0;
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+    oscillator.start();
+    gain.gain.setTargetAtTime(.012,audioContext.currentTime,.4);
+    playing=true;
+    audioBtn.classList.add('playing');
+    audioBtn.setAttribute('aria-pressed','true');
+    audioText.textContent='ON';
+   }catch(e){audioText.textContent='UNAVAILABLE'}
+  }else{
+   if(gain&&audioContext){
+    gain.gain.setTargetAtTime(0,audioContext.currentTime,.08);
+    setTimeout(()=>{try{oscillator&&oscillator.stop()}catch(e){}},350);
+   }
+   oscillator=null;playing=false;
+   audioBtn.classList.remove('playing');
+   audioBtn.setAttribute('aria-pressed','false');
+   audioText.textContent='OFF';
+  }
+ });
+})();
+</script>
+<!-- END NEXT LEVEL UPGRADE -->
+</body>
+
+ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:5;background:repeating-linear-gradient(transparent 0 3px,#00ff8810 4px);opacity:.22}
 .nav{height:72px;position:fixed;top:0;width:100%;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:#020605b8;border-bottom:1px solid #39ff1433;backdrop-filter:blur(15px)}
 .logo{font-family:Orbitron,sans-serif;font-size:19px;font-weight:900;color:var(--green);letter-spacing:3px}
 .logo span{color:white}
