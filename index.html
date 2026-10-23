@@ -75,6 +75,152 @@ footer span{color:var(--green)}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
+ 
+<!-- KIRUU-STYLE CYBER EXPERIENCE: EXTRA FEATURES -->
+<style>
+/* Cinematic opening screen */
+#arBoot{
+ position:fixed;inset:0;z-index:9999;background:#010402;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+ font-family:Orbitron,monospace;transition:opacity .8s,visibility .8s;
+}
+#arBoot.hide{opacity:0;visibility:hidden;pointer-events:none}
+.arBootLogo{font-size:clamp(32px,8vw,75px);font-weight:900;
+ color:#39ff14;text-shadow:0 0 12px #39ff14,0 0 40px #39ff1480;
+ letter-spacing:5px;animation:arPulse 1.5s infinite alternate}
+.arBootSub{font-size:10px;letter-spacing:5px;color:#b5d9be;margin-top:18px}
+.arLoader{width:min(280px,70vw);height:3px;background:#16331b;margin-top:30px;overflow:hidden}
+.arLoader span{display:block;width:40%;height:100%;background:#39ff14;box-shadow:0 0 15px #39ff14;animation:arLoad 1.5s ease-in-out infinite}
+@keyframes arLoad{from{transform:translateX(-110%)}to{transform:translateX(350%)}}
+@keyframes arPulse{to{transform:scale(1.04);text-shadow:0 0 25px #39ff14,0 0 70px #39ff14}}
+/* Cursor light */
+#arGlow{position:fixed;left:0;top:0;width:260px;height:260px;pointer-events:none;z-index:4;
+ border-radius:50%;background:radial-gradient(circle,#39ff1414,transparent 68%);
+ transform:translate(-50%,-50%);mix-blend-mode:screen}
+.arHud{position:fixed;z-index:12;left:16px;bottom:15px;
+ font:9px Orbitron,monospace;letter-spacing:2px;color:#39ff14;
+ background:#020805c9;border:1px solid #39ff1440;padding:10px 12px;
+ backdrop-filter:blur(8px);pointer-events:none}
+.arHud i{display:inline-block;width:6px;height:6px;border-radius:50%;
+ background:#39ff14;box-shadow:0 0 9px #39ff14;margin-right:7px;
+ animation:arBlink 1s infinite}
+@keyframes arBlink{50%{opacity:.2}}
+/* Extra floating badge */
+.arBadge{position:absolute;z-index:3;right:5%;top:26%;color:#39ff14;
+ border:1px solid #39ff1460;background:#020605bb;padding:12px 16px;
+ font:10px Orbitron,monospace;letter-spacing:2px;line-height:2;
+ transform:rotate(3deg);animation:arFloat 4s ease-in-out infinite}
+@keyframes arFloat{50%{transform:translateY(-12px) rotate(-2deg)}}
+/* Premium hover cards */
+.card,.panel,.stat,.btn{transform-style:preserve-3d}
+.card,.panel{transition:transform .25s,border-color .25s,box-shadow .25s}
+.arClickFX{position:fixed;z-index:9998;pointer-events:none;border-radius:50%;
+ width:8px;height:8px;border:2px solid #39ff14;
+ box-shadow:0 0 15px #39ff14;animation:arBurst .65s ease-out forwards}
+@keyframes arBurst{to{transform:scale(9);opacity:0}}
+.arScan{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.arScan:after{content:"";position:absolute;left:0;top:-20%;height:12%;
+ width:100%;background:linear-gradient(transparent,#39ff1410,transparent);
+ animation:arScanMove 7s linear infinite}
+@keyframes arScanMove{to{top:120%}}
+@media(max-width:760px){
+ #arGlow{display:none}.arBadge{top:auto;bottom:85px;right:15px;font-size:8px}
+ .arHud{font-size:8px;left:8px;bottom:8px}
+}
+@media(prefers-reduced-motion:reduce){
+ #arBoot,.arBootLogo,.arLoader span,.arBadge,.arScan:after{animation:none!important}
+}
+</style>
+
+<div id="arBoot">
+ <div class="arBootLogo">ARUN RATHOD</div>
+ <div class="arBootSub">INITIALIZING MY WORLD...</div>
+ <div class="arLoader"><span></span></div>
+ <div class="arBootSub" id="arBootText">LOADING EXPERIENCE 01%</div>
+</div>
+
+<div id="arGlow"></div>
+<div class="arHud"><i></i><span id="arStatus">SYSTEM ONLINE</span><br>
+ <span id="arCoords">X: 000 / Y: 000</span></div>
+
+<script>
+(function(){
+ const boot=document.getElementById('arBoot');
+ const bootText=document.getElementById('arBootText');
+ let progress=1;
+ const loading=setInterval(()=>{
+   progress=Math.min(100,progress+Math.floor(Math.random()*13)+5);
+   bootText.textContent='LOADING EXPERIENCE '+progress+'%';
+   if(progress>=100){
+     clearInterval(loading);
+     setTimeout(()=>boot.classList.add('hide'),350);
+   }
+ },100);
+
+ // Smooth neon cursor glow + live coordinates
+ const glow=document.getElementById('arGlow');
+ const coords=document.getElementById('arCoords');
+ let tx=innerWidth/2,ty=innerHeight/2,x=tx,y=ty;
+ addEventListener('pointermove',e=>{
+   tx=e.clientX;ty=e.clientY;
+   coords.textContent='X: '+String(Math.round(tx)).padStart(3,'0')+
+   ' / Y: '+String(Math.round(ty)).padStart(3,'0');
+ },{passive:true});
+ function moveGlow(){
+   x+=(tx-x)*.16;y+=(ty-y)*.16;
+   glow.style.left=x+'px';glow.style.top=y+'px';
+   requestAnimationFrame(moveGlow);
+ }
+ moveGlow();
+
+ // Energy ring on click/tap
+ addEventListener('pointerdown',e=>{
+   if(e.target.closest('a,button'))return;
+   const fx=document.createElement('div');
+   fx.className='arClickFX';
+   fx.style.left=e.clientX+'px';
+   fx.style.top=e.clientY+'px';
+   document.body.appendChild(fx);
+   setTimeout(()=>fx.remove(),700);
+ },{passive:true});
+
+ // 3D tilt effect for feature cards
+ document.querySelectorAll('.card,.panel').forEach(card=>{
+   card.addEventListener('pointermove',e=>{
+     if(innerWidth<760)return;
+     const r=card.getBoundingClientRect();
+     const px=(e.clientX-r.left)/r.width-.5;
+     const py=(e.clientY-r.top)/r.height-.5;
+     card.style.transform=
+       `perspective(800px) rotateY(${px*9}deg) rotateX(${-py*7}deg) translateY(-4px)`;
+   });
+   card.addEventListener('pointerleave',()=>{
+     card.style.transform='';
+   });
+ });
+
+ // Status changes with connection state
+ const status=document.getElementById('arStatus');
+ addEventListener('online',()=>status.textContent='SYSTEM ONLINE');
+ addEventListener('offline',()=>status.textContent='OFFLINE MODE');
+ status.textContent=navigator.onLine?'SYSTEM ONLINE':'OFFLINE MODE';
+
+ // Add subtle scan effect to the hero
+ const hero=document.querySelector('.hero');
+ if(hero){
+   const scan=document.createElement('div');
+   scan.className='arScan';
+   hero.appendChild(scan);
+   const badge=document.createElement('div');
+   badge.className='arBadge';
+   badge.innerHTML='AR / 001<br>VISION: UNLIMITED<br>STATUS: BUILDING';
+   hero.appendChild(badge);
+ }
+})();
+</script>
+<!-- END EXTRA FEATURES -->
+</body>
+
 <body>
 <canvas id="stars"></canvas>
 
