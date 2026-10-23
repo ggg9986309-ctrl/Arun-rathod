@@ -214,6 +214,349 @@ body{background:var(--bg);color:#fff;font-family:'Rajdhani',sans-serif;overflow-
 })();
 </script>
 <!-- END HEERIYE PLAYER -->
+ 
+
+<!-- ARUN RATHOD: HOLOGRAM PROFILE CARD -->
+
+<style>
+
+#arHoloWrap {
+
+  width: min(90%, 360px);
+
+  margin: 60px auto;
+
+  perspective: 1000px;
+
+  position: relative;
+
+  z-index: 2;
+
+}
+
+#arHoloCard {
+
+  --rx: 0deg;
+
+  --ry: 0deg;
+
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 28px 22px;
+
+  text-align: center;
+
+  color: #fff;
+
+  background:
+
+    radial-gradient(ellipse at top, #12391c 0%, transparent 65%),
+
+    linear-gradient(145deg, #101410, #030504 70%);
+
+  border: 1px solid #39ff14;
+
+  border-radius: 22px;
+
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+
+  transform-style: preserve-3d;
+
+  transition: transform .16s ease-out, box-shadow .3s;
+
+  box-shadow: 0 0 22px #39ff1425, inset 0 0 25px #39ff140d;
+
+}
+
+#arHoloCard::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: -100% -40%;
+
+  background: linear-gradient(
+
+    transparent 42%,
+
+    #39ff1422 50%,
+
+    transparent 58%
+
+  );
+
+  transform: rotate(-25deg);
+
+  animation: arHoloScan 5s linear infinite;
+
+  pointer-events: none;
+
+}
+
+@keyframes arHoloScan {
+
+  to { top: 150%; }
+
+}
+
+.arHoloTag {
+
+  color: #39ff14;
+
+  font: 11px monospace;
+
+  letter-spacing: 4px;
+
+}
+
+.arHoloAvatar {
+
+  width: 112px;
+
+  height: 112px;
+
+  margin: 22px auto 15px;
+
+  border-radius: 50%;
+
+  border: 2px solid #39ff14;
+
+  background: #101810;
+
+  display: grid;
+
+  place-items: center;
+
+  color: #39ff14;
+
+  font: bold 38px monospace;
+
+  box-shadow: 0 0 22px #39ff1455;
+
+  overflow: hidden;
+
+}
+
+.arHoloAvatar img {
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+}
+
+.arHoloName {
+
+  margin: 8px 0;
+
+  font-size: 25px;
+
+  font-weight: 900;
+
+  letter-spacing: 2px;
+
+  text-shadow: 0 0 15px #39ff1470;
+
+}
+
+.arHoloBio {
+
+  color: #a7b6a5;
+
+  font-size: 13px;
+
+  line-height: 1.8;
+
+}
+
+.arHoloLine {
+
+  height: 1px;
+
+  margin: 20px 0;
+
+  background: linear-gradient(90deg, transparent, #39ff14, transparent);
+
+}
+
+#arHoloInsta {
+
+  display: block;
+
+  position: relative;
+
+  padding: 13px;
+
+  border: 1px solid #39ff14;
+
+  border-radius: 9px;
+
+  color: #39ff14;
+
+  text-decoration: none;
+
+  font: bold 12px monospace;
+
+  letter-spacing: 2px;
+
+  transition: .25s;
+
+}
+
+#arHoloInsta:hover {
+
+  color: #000;
+
+  background: #39ff14;
+
+  box-shadow: 0 0 25px #39ff1470;
+
+}
+
+.arHoloFoot {
+
+  margin-top: 17px;
+
+  color: #647164;
+
+  font: 9px monospace;
+
+  letter-spacing: 2px;
+
+}
+
+@media (hover: none) {
+
+  #arHoloCard {
+
+    transform: none;
+
+  }
+
+}
+
+</style>
+
+<div id="arHoloWrap">
+
+  <div id="arHoloCard">
+
+    <div class="arHoloTag">IDENTITY // VERIFIED PROFILE</div>
+
+    <div class="arHoloAvatar" id="arHoloAvatar">
+
+      AR
+
+    </div>
+
+    <h2 class="arHoloName">ARUN RATHOD</h2>
+
+    <div class="arHoloBio">
+
+      DIFFERENT MINDSET.<br>
+
+      SILENT MOVES. STRONG PRESENCE.
+
+    </div>
+
+    <div class="arHoloLine"></div>
+
+    <a
+
+      id="arHoloInsta"
+
+      href="https://www.instagram.com/arunofficial.07/"
+
+      target="_blank"
+
+      rel="noopener noreferrer"
+
+    >
+
+      ◎ OPEN INSTAGRAM PROFILE ↗
+
+    </a>
+
+    <div class="arHoloFoot">PERSONAL PROFILE // AR-007</div>
+
+  </div>
+
+</div>
+
+<script>
+
+(() => {
+
+  const card = document.getElementById("arHoloCard");
+
+  const wrap = document.getElementById("arHoloWrap");
+
+  if (!card || !wrap) return;
+
+  // 3D tilt on devices with a mouse
+
+  wrap.addEventListener("pointermove", (event) => {
+
+    if (event.pointerType !== "mouse") return;
+
+    const rect = card.getBoundingClientRect();
+
+    const x = (event.clientX - rect.left) / rect.width;
+
+    const y = (event.clientY - rect.top) / rect.height;
+
+    card.style.setProperty("--ry", ((x - 0.5) * 14) + "deg");
+
+    card.style.setProperty("--rx", ((0.5 - y) * 14) + "deg");
+
+  });
+
+  wrap.addEventListener("pointerleave", () => {
+
+    card.style.setProperty("--rx", "0deg");
+
+    card.style.setProperty("--ry", "0deg");
+
+  });
+
+  // Optional photo: set your image filename here.
+
+  // Example: "arun-main.jpeg"
+
+  const photoFile = "";
+
+  if (photoFile) {
+
+    const avatar = document.getElementById("arHoloAvatar");
+
+    const img = document.createElement("img");
+
+    img.src = photoFile;
+
+    img.alt = "Arun Rathod profile photo";
+
+    img.onerror = () => {
+
+      img.remove();
+
+      avatar.textContent = "AR";
+
+    };
+
+    avatar.textContent = "";
+
+    avatar.appendChild(img);
+
+  }
+
+})();
+
+</script>
 
 </body>
 
