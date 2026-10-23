@@ -139,7 +139,82 @@ body{background:var(--bg);color:#fff;font-family:'Rajdhani',sans-serif;overflow-
  });
 })();
 </script>
-<!-- END NEXT LEVEL UPGRADE -->
+<!-- END NEXT LEVEL 
+<!-- ARUN RATHOD x HEERIYE MUSIC PLAYER -->
+<style>
+#heeriyeBtn{
+ position:fixed;right:14px;bottom:58px;z-index:9999;
+ display:flex;align-items:center;gap:11px;padding:13px 16px;
+ color:#39ff14;background:#020805ed;border:1px solid #39ff14;
+ font:10px Orbitron,sans-serif;letter-spacing:1.5px;
+ cursor:pointer;box-shadow:0 0 20px #39ff1430;
+}
+#heeriyeBtn:hover{box-shadow:0 0 28px #39ff1480}
+#heeriyeDisc{
+ width:25px;height:25px;border-radius:50%;
+ border:2px solid #39ff14;display:grid;place-items:center;
+ font-size:13px;background:#07130a;
+}
+#heeriyeBtn.playing #heeriyeDisc{
+ animation:heeriyeSpin 3s linear infinite;
+}
+@keyframes heeriyeSpin{to{transform:rotate(360deg)}}
+#heeriyeStatus{display:block;color:#a3c6aa;font-size:8px;margin-top:4px}
+#heeriyeFrame{
+ position:fixed;width:1px;height:1px;left:-10px;bottom:0;
+ opacity:.01;pointer-events:none;
+}
+</style>
+
+<button id="heeriyeBtn" type="button" aria-pressed="false">
+ <span id="heeriyeDisc">♫</span>
+ <span>
+  <span id="heeriyeLabel">PLAY HEERIYE</span>
+  <span id="heeriyeStatus">ARUN RATHOD • MUSIC</span>
+ </span>
+</button>
+
+<iframe
+ id="heeriyeFrame"
+ title="Heeriye YouTube player"
+ src="https://www.youtube-nocookie.com/embed/RLzC55ai0eo?enablejsapi=1&playsinline=1"
+ allow="autoplay; encrypted-media"
+ referrerpolicy="strict-origin-when-cross-origin">
+</iframe>
+
+<script>
+(function(){
+ const btn=document.getElementById('heeriyeBtn');
+ const frame=document.getElementById('heeriyeFrame');
+ const label=document.getElementById('heeriyeLabel');
+ const status=document.getElementById('heeriyeStatus');
+ let playing=false;
+
+ function send(command){
+  frame.contentWindow.postMessage(JSON.stringify({
+   event:'command',func:command,args:[]
+  }),'https://www.youtube-nocookie.com');
+ }
+
+ btn.addEventListener('click',()=>{
+  if(!playing){
+   send('playVideo');
+   playing=true;
+   label.textContent='HEERIYE';
+   status.textContent='PLAYING • TAP TO PAUSE';
+  }else{
+   send('pauseVideo');
+   playing=false;
+   label.textContent='PLAY HEERIYE';
+   status.textContent='PAUSED • TAP TO PLAY';
+  }
+  btn.classList.toggle('playing',playing);
+  btn.setAttribute('aria-pressed',String(playing));
+ });
+})();
+</script>
+<!-- END HEERIYE PLAYER -->
+
 </body>
 
  body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:5;background:repeating-linear-gradient(transparent 0 3px,#00ff8810 4px);opacity:.22}
